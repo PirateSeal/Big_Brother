@@ -191,12 +191,24 @@ function upgrade_radar_entity(radar, radar_efficiency_level, radar_amplifier_lev
     radar.destroy()
 
     if not radar_data then
-        local blueprint_radar = surface.create_entity({ name = 'big_brother-blueprint-radar', position = pos, direction = direction, force = force})
-        Entity.set_frozen(blueprint_radar)
-        Entity.set_indestructible(blueprint_radar)
+        local blueprint_radar = surface.create_entity({ 
+            name = 'big_brother-blueprint-radar', 
+            position = pos, 
+            direction = direction, 
+            force = force,
+            minable = true,  -- Ensure the radar is minable
+            destructible = true  -- Ensure the radar is destructible
+        })
         radar_data = { blueprint_radar = blueprint_radar }
     end
-    local new_radar = surface.create_entity({ name = radar_name, position = pos, direction = direction, force = force})
+    local new_radar = surface.create_entity({ 
+        name = radar_name, 
+        position = pos, 
+        direction = direction, 
+        force = force,
+        minable = true,  -- Ensure the radar is minable
+        destructible = true  -- Ensure the radar is destructible
+    })
     new_radar.health = health
     Entity.set_data(new_radar, radar_data)
 
